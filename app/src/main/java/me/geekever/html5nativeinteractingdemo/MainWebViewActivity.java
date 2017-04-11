@@ -1,19 +1,47 @@
 package me.geekever.html5nativeinteractingdemo;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.webkit.JavascriptInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 
-import java.io.FileNotFoundException;
+public class MainWebViewActivity extends BaseWebViewActivity {
+    private WebView mWebView;
+    private Button mButton;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mButton=(Button)findViewById(R.id.color_changer);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String color="#00FFFF";
+                mWebView.loadUrl("javascript: changeColor('"+color+"');");
+            }
+        });
+        mWebView=(WebView)findViewById(R.id.webView);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.addJavascriptInterface(new JumpInterface(),"Android");
+        mWebView.loadUrl("http://123.206.57.23/testNH.html");
+    }
 
-/**
- * Created by ever on 2017/4/11.
- */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mWebView.removeAllViews();
+        mWebView.destroy();
+    }
 
-public class BaseActivity extends AppCompatActivity {
-
-    private String getPageName(String key){
+    /**
+     *
+     * @param key
+     * Data Format:Activity,param1=(type)value&param2=(type)value...
+     * @return
+     */
+    @Override
+    protected String getPageName(String key) {
         String pageName;
         int pos=key.indexOf(",");
         if (pos==-1) {
@@ -25,12 +53,13 @@ public class BaseActivity extends AppCompatActivity {
         return pageName;
     }
 
-    /*****************************************************
+    /**
      *
      * @param url
      * Data Format:Activity,param1=(type)value&param2=(type)value...
      */
-    public void jump(String url){
+    @Override
+    public void jump(String url) {
         if (url==null){
             return;
         }
@@ -64,11 +93,4 @@ public class BaseActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    class JumpInterface {
-        @JavascriptInterface
-        public void startAnotherActivity(String id){
-            jump(id);
-        }
-    }
 }
-

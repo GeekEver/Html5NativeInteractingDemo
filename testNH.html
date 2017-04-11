@@ -1,0 +1,31 @@
+<!-- 测试用的html代码 -->
+<html>
+  <head>
+    <script type="text/javascript">
+      function changeColor (color){
+          document.body.style.backgroundColor=color;
+      }
+      function startAnotherActivity(id) {
+          Android.startAnotherActivity(id);
+      }
+    </script>
+    <style type="text/css">
+      input.margin {
+        margin: 16px;
+        width: 300px; height: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>This is a test.</h1>
+    <h2>This is a WebView.</h2>
+    <p>Click the button outside will change background color of the webview.</p>
+    <br/>
+    <p>Button will start an another Activity.</p>
+    <div>
+      <input class="margin" type="button" value="Go" onClick="startAnotherActivity('me.geekever.html5nativeinteractingdemo.SecondActivity')" />
+      <br/>
+      <input class="margin" type="button" value="Login" onClick="startAnotherActivity('me.geekever.html5nativeinteractingdemo.LoginActivity')" />
+    </div>
+  </body>
+</html>

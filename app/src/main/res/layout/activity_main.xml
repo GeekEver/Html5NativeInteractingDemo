@@ -6,7 +6,7 @@
     android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.geekever.html5nativeinteractingdemo.MainActivity">
+    tools:context="me.geekever.html5nativeinteractingdemo.MainWebViewActivity">
     <WebView
         android:layout_width="368dp"
         android:layout_height="495dp"
